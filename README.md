@@ -140,32 +140,31 @@ python src/test_inference.py
 ### Environment Variables & Secrets
 This project uses GitHub Secrets for secure access to AWS credentials:
 
-**Secret Name	Description
-**AWS_ACCESS_KEY_ID		AWS Access Key for authentication
-**AWS_SECRET_ACCESS_KEY	AWS Secret Key for authentication
-**SAGEMAKER_BUCKET		S3 bucket name for storing model files
-**SAGEMAKER_ROLE			AWS IAM Role for SageMaker execution
+- Secret Name	Description
+- AWS_ACCESS_KEY_ID		AWS Access Key for authentication
+- AWS_SECRET_ACCESS_KEY	AWS Secret Key for authentication
+- SAGEMAKER_BUCKET		S3 bucket name for storing model files
+- SAGEMAKER_ROLE			AWS IAM Role for SageMaker execution
 
 ### To set up GitHub Secrets:
-
-**Go to your GitHub repo → "Settings" → "Secrets and variables" → "Actions"
-**Add the required secrets (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, etc.)
+- Go to your GitHub repo → "Settings" → "Secrets and variables" → "Actions"
+- Add the required secrets (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, etc.)
 
 
 ### 🔧 Deployment Steps
-**Model Training (04_model_training.py)
+1. Model Training (04_model_training.py)
 		Trains XGBoost model & saves it as xgboost_model.pkl
-***Model Packaging (05_deployment_testing.py)
-	**Converts .pkl to SageMaker-compatible .model
-	**Packages the model into xgboost_model.tar.gz
-	**Uploads to AWS S3
-	**AWS SageMaker Deployment
-	**Creates a SageMaker Model
-	**Deploys an Inference Endpoint
-	**Waits for deployment to be InService
-	**GitHub Actions CI/CD Pipeline
-	**Triggers deployment on every push to main branch
-	**Deletes old models, endpoints & redeploys the latest version
+2. Model Packaging (05_deployment_testing.py)
+	- Converts .pkl to SageMaker-compatible .model
+	- Packages the model into xgboost_model.tar.gz
+	- Uploads to AWS S3
+	- AWS SageMaker Deployment
+	- Creates a SageMaker Model
+	- Deploys an Inference Endpoint
+	- Waits for deployment to be InService
+	- GitHub Actions CI/CD Pipeline
+	- Triggers deployment on every push to main branch
+	- Deletes old models, endpoints & redeploys the latest version
 
 
 ### GitHub Actions Workflow:
@@ -249,11 +248,11 @@ print("✅ Model Inference Output:", result)
 
 ### Future Enhancements
 - Hyperparameter Tuning: Optimize model parameters for better 
-**Feature Engineering Improvements (Lags, Moving Averages)
-**Deep Learning Models: Implement LSTMs or Transformers for time series forecasting
-**External Data Sources: Include macroeconomic indicators for better predictions
-**Deploy as API: Use FastAPI or Flask for real-time predictions
-**Scale Deployment with AWS Lambda
+- Feature Engineering Improvements (Lags, Moving Averages)
+- Deep Learning Models: Implement LSTMs or Transformers for time series forecasting
+- External Data Sources: Include macroeconomic indicators for better predictions
+- Deploy as API: Use FastAPI or Flask for real-time predictions
+- Scale Deployment with AWS Lambda
 
 ### Troubleshooting Guide
 1. Issue: Deployment fails with ModelError (415) - application/json is not an accepted ContentType
