@@ -1,12 +1,13 @@
 name: SageMaker Deployment Pipeline
+
 on:
   push:
     branches:
-      - main  # Runs when you push to main branch
+      - main  # Runs when code is pushed to main
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # Use latest Ubuntu machine
+    runs-on: ubuntu-latest  # Use Ubuntu machine
 
     steps:
       - name: 🚀 Checkout Repository
@@ -19,8 +20,9 @@ jobs:
 
       - name: 📦 Install Dependencies
         run: |
-          python -m venv forecasting_env
-          source forecasting_env/bin/activate
+          python -m venv forecasting_env  # Create virtual environment
+          source forecasting_env/bin/activate  # Activate it
+          pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: ⚙️ Configure AWS Credentials
@@ -30,15 +32,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1  # Change this if needed
 
-      - name: 🏗️ Run Model Training
+      - name: 🔑 Set Environment Variables
         run: |
-          source forecasting_env/bin/activate
-          jupyter nbconvert --to notebook --execute notebooks/04_model_training.ipynb
+          echo "SAGEMAKER_BUCKET=${{ secrets.SAGEMAKER_BUCKET }}" >> $GITHUB_ENV
+          echo "SAGEMAKER_ROLE=${{ secrets.SAGEMAKER_ROLE }}" >> $GITHUB_ENV
 
-      - name: 📦 Package and Deploy Model to SageMaker
+      - name: 📦 Deploy Model to AWS SageMaker
         run: |
           source forecasting_env/bin/activate
-          jupyter nbconvert --to notebook --execute notebooks/05_deployment_testing.ipynb
+          python src/05_deployment_testing.py  # Only deploy, no training
 
       - name: ✅ Deployment Completed
         run: echo "Deployment to AWS SageMaker is successful!"
