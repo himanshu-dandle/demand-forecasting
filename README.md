@@ -5,7 +5,7 @@
 This project builds a demand forecasting model using XGBoost, deployed on AWS SageMaker with a CI/CD pipeline using GitHub Actions.
 
 ✅ Key Features:
-✔ **Data Preprocessing & Feature Engineering 🛠️
+**Data Preprocessing & Feature Engineering 
 ✔ **Model Training with XGBoost 📊
 ✔ **Automated Deployment to AWS SageMaker 🚀
 ✔ **Real-time Inference via API 🔮
