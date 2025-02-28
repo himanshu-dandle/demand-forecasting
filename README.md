@@ -1,21 +1,31 @@
-Demand Forecasting Using Machine Learning
- A Machine Learning-based Demand Forecasting system trained and deployed on AWS SageMaker
- 
- 
- 📌 Overview
-Demand forecasting is a crucial problem in supply chain management and retail. This project uses machine learning models like XGBoost, Random Forest, and Gradient Boosting to predict future product demand based on historical sales data.
+# 📌 Demand Forecasting Using Machine Learning  
 
-🔹 Key Steps Covered:
-✔ Data Preprocessing (handling missing values, outliers, feature engineering)
-✔ Model Training (XGBoost, Random Forest, Gradient Boosting, Prophet)
-✔ Model Evaluation (comparing MAE, MSE, R²)
-✔ AWS SageMaker Deployment (automatic model deployment pipeline)
-✔ CI/CD Pipeline (for automated deployment updates)
+📈 **Accurately predicting future demand to optimize inventory and supply chain management.**  
 
-📂 Project Structure
+📌 **GitHub Repository:** [Demand Forecasting Project](https://github.com/himanshu-dandle/demand-forecasting)  
 
+---
 
-Demand_Forecasting_Project/
+## 🚀 Project Overview  
+
+Demand forecasting is essential for **retail and supply chain optimization**. This project uses **XGBoost, Random Forest, and Gradient Boosting** to analyze **historical sales data** and predict **future demand**.  
+
+### 🔹 Why Demand Forecasting?  
+✔ **Reduces inventory costs** by minimizing overstock and shortages  
+✔ **Improves decision-making** for procurement and logistics  
+✔ **Enhances customer satisfaction** with better product availability  
+
+### 🔹 Key Features  
+✔ **Data Cleaning & Feature Engineering** (date-based & categorical features)  
+✔ **ML Model Training & Evaluation** (XGBoost, Random Forest, Gradient Boosting)  
+✔ **AWS SageMaker Deployment** (for scalable predictions)  
+✔ **Automated CI/CD Pipeline** (GitHub Actions for continuous deployment)  
+
+---
+
+## 📂 Project Structure  
+
+📦 Demand_Forecasting_Project
 │── data/                    # Raw & processed datasets  
 │── models/                  # Trained models & artifacts  
 │── notebooks/               # Jupyter Notebooks for each step  
@@ -34,60 +44,57 @@ Demand_Forecasting_Project/
 │── 05_deployment_testing.ipynb  # Deploy to AWS SageMaker & test inference
 
 
-📊 Model Performance Comparison
-Model				MAE			MSE				R²
-XGBoost				0.373834	0.251892	0.7462
-Random Forest		0.375562	0.272121	0.7258
-Gradient Boosting	0.573512	0.555499	0.4403
-✅ XGBoost performed the best and was selected for deployment.
+---
 
-🛠 Technologies Used
-Python (pandas, numpy, scikit-learn, XGBoost)
-Jupyter Notebook (for EDA & training)
-AWS SageMaker (for model deployment)
-Amazon S3 (for storing datasets & models)
-GitHub Actions (for CI/CD automation)
-🚀 Deployment Process
-1️⃣ Train the Model (04_model_training.ipynb)
-After feature engineering, models are trained and the best-performing model is saved as .pkl.
+## 📊 Model Performance Evaluation  
 
-2️⃣ Convert & Package Model (05_deployment_testing.ipynb)
-Convert .pkl → .model (XGBoost native format)
-Package as .tar.gz (required for SageMaker)
-Upload to Amazon S3
-3️⃣ Deploy Model to AWS SageMaker
-Automatically delete previous endpoint if exists
-Deploy new model & wait until InService
-Test inference on deployed model
-✅ The entire process is automated in 05_deployment_testing.ipynb.
+| Model               	 	| MAE       	| MSE        | R²        |
+|----------------------|--------------------|------------|-----------|
+| **XGBoost**         		| 0.3738 	 	| 0.2518     | **0.7462**|
+| **Random Forest**   		| 0.3755        | 0.2721     | 0.7258    |
+| **Gradient Boosting** 	| 0.5735        | 0.5554     | 0.4403    |
 
-📌 How to Run This Project
-1️⃣ Clone the Repository
-git clone https://github.com/himanu-dandle/demand-forecasting.git
-cd demand-forecasting
+✅ **XGBoost performed the best** and was selected for deployment.  
+
+---
+
+## 🛠 Technologies Used  
+- **Programming:** Python (pandas, numpy, scikit-learn, XGBoost)  
+- **Notebook Environment:** Jupyter Notebook  
+- **Cloud Platform:** AWS SageMaker (for deployment)  
+- **Storage:** Amazon S3 (for model storage)  
+- **CI/CD Pipeline:** GitHub Actions (for automatic deployment)  
+
+---
+
+## 🚀 Step-by-Step Guide to Running the Project  
+
+### 1️⃣ Clone the Repository  
+```
+git clone https://github.com/himanshu-dandle/demand-forecasting.git
+cd Demand_Forecasting_Project
+
 
 2️⃣ Set Up Virtual Environment & Install Dependencies
+
 python -m venv forecasting_env
-source forecasting_env/bin/activate  # For Mac/Linux
-forecasting_env\Scripts\activate     # For Windows
+source forecasting_env/bin/activate  # Mac/Linux
+forecasting_env\Scripts\activate     # Windows
 pip install -r requirements.txt
 
 3️⃣ Configure AWS Credentials
 Create a .env file in the project root (DO NOT COMMIT THIS FILE).
-SAGEMAKER_BUCKET=demand-forecasting-bucket-us-east-1
-SAGEMAKER_ROLE=arn:aws:iam::060795905003:role/service-role/AmazonSageMaker-ExecutionRole-XXXXX
+	SAGEMAKER_BUCKET=demand-forecasting-bucket-us-east-1
+	SAGEMAKER_ROLE=arn:aws:iam::060795905003:role/service-role/AmazonSageMaker-ExecutionRole-XXXXX
 
 4️⃣ Train the Model
-jupyter notebook 04_model_training.ipynb
-
+	jupyter notebook notebooks/04_model_training.ipynb
+	
 5️⃣ Deploy the Model to AWS SageMaker
-jupyter notebook 05_deployment_testing.ipynb
+	jupyter notebook notebooks/05_deployment_testing.ipynb
 
-📌 Inference: Making Predictions with Deployed Model
-Once the model is deployed, you can send real-time inference requests:
-
-python
-
+📌 Making Predictions with the Deployed Model
+Once the model is deployed, send real-time inference requests:
 
 import boto3
 import json
@@ -108,21 +115,32 @@ result = json.loads(response["Body"].read().decode())
 print("✅ Prediction:", result)
 
 🚀 CI/CD Pipeline (Auto-Deploy with GitHub Actions)
-Every time new code is pued to GitHub, the CI/CD pipeline:
+Every push to GitHub triggers a workflow:
 ✅ Runs tests
 ✅ Re-trains the model (if needed)
 ✅ Deploys the new model to AWS SageMaker
 ⚡ Want to enable GitHub Actions for automatic deployment? Let me know!
 
-📌 Future Improvements
-🔹 Add Deep Learning models (LSTMs, Transformers for time series forecasting)
-🔹 Enable Hyperparameter tuning for better performance
-🔹 Set up API Gateway for model inference requests
+📌 Future Enhancements
+✔ Hyperparameter Tuning: Optimize model parameters for better accuracy
+✔ Deep Learning Models: Implement LSTMs or Transformers for time series forecasting
+✔ External Data Sources: Include macroeconomic indicators for better predictions
+✔ Deploy as API: Use FastAPI or Flask for real-time predictions
 
 📩 Contact & Contributions
 🙋‍♂️ Author: Himanshu Dandle
-📧 Email: himanshu.dandle@gmail.com
+📧 Email: HIMANSHU.DANDLE#GMAIL.COM
 🔗 GitHub: himanshu-dandle
 
 
 
+
+
+
+
+
+
+
+
+ChatGPT can make mistakes. Check important info.
+?
