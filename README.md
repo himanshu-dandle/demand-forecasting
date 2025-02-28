@@ -1,5 +1,6 @@
 ## ***🛒 Demand Forecasting using AWS SageMaker & XGBoost***
 🔗 GitHub Repository: demand-forecasting ([Demand Forecasting Project](https://github.com/himanshu-dandle/demand-forecasting))
+🌍 Live Web App: Streamlit Deployment (https://demand-forecasting-jmxcmvvbm74m5fwevppiv5.streamlit.app/)
 
 ## 📈 Project Overview:
 This project builds a demand forecasting model using XGBoost, deployed on AWS SageMaker with a CI/CD pipeline using GitHub Actions.
@@ -53,7 +54,8 @@ demand-forecasting/
 │── src/                    # Python scripts for processing & training  
 │   ├── 04_model_training.py       # Train & save the XGBoost model  
 │   ├── 05_deployment_testing.py   # Deploy & test inference on SageMaker  
-│   ├── test_inference.py          # Run batch inference  
+│   ├── test_inference.py          # Run batch inference
+│   ├── streamlit_app.py       # Streamlit Web App for Inference  
 │── deployment/             # Deployment configurations  
 │── .github/workflows/      # GitHub Actions CI/CD  
 │── .env                    # AWS credentials (ignored in GitHub)  
