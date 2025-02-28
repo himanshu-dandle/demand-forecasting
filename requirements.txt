@@ -19,3 +19,5 @@ nbconvert==7.2.10  # Required for executing notebooks in GitHub Actions
 
 # Environment Variables Management
 python-dotenv==1.0.0
+
+streamlit
