@@ -1,18 +1,15 @@
-# Demand Forecasting Using Machine Learning  
+## 🛒 Demand Forecasting using AWS SageMaker & XGBoost
+🔗 GitHub Repository: demand-forecasting ( [Demand Forecasting Project](https://github.com/himanshu-dandle/demand-forecasting)  )
 
-Accurately predicting future demand to optimize inventory and supply chain management.** 
-Live Deployed Model AWS SageMaker Endpoint: xgboost-demand-forecasting-endpoint (Private)
-GitHub Repository: [Demand Forecasting Project](https://github.com/himanshu-dandle/demand-forecasting)  
- 
----
+📈 Project Overview:
+This project builds a demand forecasting model using XGBoost, deployed on AWS SageMaker with a CI/CD pipeline using GitHub Actions.
 
-##  Project Overview  
-
-This project builds a demand forecasting system using machine learning models such as XGBoost, Random Forest, and Gradient Boosting. The model predicts product demand based on historical sales data, price fluctuations, and store performance.
-
-✔ End-to-End Pipeline from EDA → Model Training → Deployment
-✔ Deployed on AWS SageMaker for scalable real-time inference
-✔ Automated CI/CD with GitHub Actions
+✅ Key Features:
+✔ Data Preprocessing & Feature Engineering 🛠️
+✔ Model Training with XGBoost 📊
+✔ Automated Deployment to AWS SageMaker 🚀
+✔ Real-time Inference via API 🔮
+✔ CI/CD Pipeline for Model Deployment 🔄
 
 
 ### Why Demand Forecasting?  
@@ -24,25 +21,20 @@ This project builds a demand forecasting system using machine learning models su
 ## Dataset Details
 The dataset used in this project comes from **Kaggle** and contains historical sales data for demand forecasting.
 
-📌 **Source:** [Kaggle - Demand Forecasting Dataset](https://www.kaggle.com/) (Replace with actual link)
+📌 Source: Kaggle - Demand Forecasting Dataset
 
-✔ **You need to manually download the dataset from Kaggle** before running the project.  
-✔ **Place the dataset in the `data/` directory** before training the model.
+The dataset includes:
 
-The dataset contains the following features:
-
-1. **Column	Description
-2. **record_ID	Unique record identifier
-3. **week	Sales week (timestamp)
-4. **store_id	Store identifier
-5. **sku_id	Stock Keeping Unit (Product ID)
-6. **total_price	Total revenue generated
-7. ** base_price	Product base price
-8. **is_featured_sku	Whether the product was promoted
-9. **is_display_sku	Whether the product was displayed prominently
-10. **units_sold	Target Variable - Number of units sold
-11. **year, month, week_num, quarter, day_of_week	Extracted time features
-
+record_ID – Unique record identifier
+week – Weekly sales data
+store_id – Store identifier
+sku_id – Stock Keeping Unit (SKU) identifier
+total_price – Total revenue generated
+units_sold – Target variable (demand forecast)
+✅ Data Preprocessing Includes:
+✔ Handling Missing Values & Outliers
+✔ Feature Engineering (Year, Month, Week Number, etc.)
+✔ Scaling & Encoding for Model Training
 
 
 
@@ -55,23 +47,19 @@ The dataset contains the following features:
 ---
 
 ## 📂 Project Structure  
-📂 Demand_Forecasting_Project/
-├── 📁 data/                 # Raw & processed datasets (not committed to GitHub)  
-├── 📁 models/               # Trained models & artifacts  
-├── 📁 notebooks/            # Jupyter Notebooks for EDA & training  
-├── 📁 src/                  # Python scripts for model training & deployment  
-│   ├── 01_data_loading.py  
-│   ├── 02_eda.py  
-│   ├── 03_feature_engineering.py  
-│   ├── 04_model_training.py  
-│   ├── 05_deployment_testing.py  
-│   ├── test_inference.py  # Inference testing script  
-├── 📁 deployment/           # Deployment-related configuration files  
-├── 📁 .github/workflows/    # GitHub Actions CI/CD pipeline  
-│   ├── deploy.yml  
-├── 📄 requirements.txt      # Python dependencies  
-├── 📄 .gitignore            # Ignored files (data, logs, secrets)  
-├── 📄 README.md             # Project documentation  
+demand-forecasting/
+│── data/                   # Raw & processed datasets  
+│── models/                 # Trained models & artifacts  
+│── notebooks/              # Jupyter Notebooks for EDA & training  
+│── plots/                  # Visualizations  
+│── src/                    # Python scripts for processing & training  
+│   ├── 04_model_training.py       # Train & save the XGBoost model  
+│   ├── 05_deployment_testing.py   # Deploy & test inference on SageMaker  
+│   ├── test_inference.py          # Run batch inference  
+│── deployment/             # Deployment configurations  
+│── .github/workflows/      # GitHub Actions CI/CD  
+│── .env                    # AWS credentials (ignored in GitHub)  
+│── README.md               # Project documentation  
 
 
 ---
@@ -97,7 +85,7 @@ The dataset contains the following features:
 
 ---
 
-##  Step-by-Step Guide to Running the Project  
+##  🎯 How to Run This Project  
 
 ### 1️ Clone the Repository  
 ```
@@ -112,39 +100,27 @@ source forecasting_env/bin/activate  # Mac/Linux
 forecasting_env\Scripts\activate     # Windows
 pip install -r requirements.txt
 
+```
+
 3️ configure AWS Credentials
 Create a .env file in the project root (DO NOT COMMIT THIS FILE).
 	SAGEMAKER_BUCKET=demand-forecasting-bucket-us-east-1
 	SAGEMAKER_ROLE=arn:aws:iam::060795905003:role/service-role/AmazonSageMaker-ExecutionRole-XXXXX
 
 4️ Train the Model
-	jupyter notebook notebooks/04_model_training.ipynb
+	
+	python src/04_model_training.py
+
 	
 5️ Deploy the Model to AWS SageMaker
-	jupyter notebook notebooks/05_deployment_testing.ipynb
+	python src/05_deployment_testing.py
 
- Making Predictions with the Deployed Model
-Once the model is deployed, send real-time inference requests:
 
-import boto3
-import json
+6.  Making Predictions with the Deployed Model
+   python src/test_inference.py
 
-runtime = boto3.client("sagemaker-runtime")
+🚀 Deployment Pipeline (AWS SageMaker & CI/CD)
 
-ENDPOINT_NAME = "xgboost-demand-forecasting-endpoint"
-
-test_input = json.dumps({"instances": [[5.2, 3.1, 1.4, 0.2]]})  # Modify as needed
-
-response = runtime.invoke_endpoint(
-    EndpointName=ENDPOINT_NAME,
-    ContentType="application/json",
-    Body=test_input
-)
-
-result = json.loads(response["Body"].read().decode())
-print("Prediction:", result)
-
- CI/CD Workflow (GitHub Actions)
 This project includes automated model deployment via GitHub Actions.
 
  Workflow File: .github/workflows/deploy.yml
@@ -169,6 +145,101 @@ SAGEMAKER_ROLE			AWS IAM Role for SageMaker execution
 
 Go to your GitHub repo → "Settings" → "Secrets and variables" → "Actions"
 Add the required secrets (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, etc.)
+
+
+🔧 Deployment Steps
+Model Training (04_model_training.py)
+
+Trains XGBoost model & saves it as xgboost_model.pkl
+Model Packaging (05_deployment_testing.py)
+
+Converts .pkl to SageMaker-compatible .model
+Packages the model into xgboost_model.tar.gz
+Uploads to AWS S3
+AWS SageMaker Deployment
+
+Creates a SageMaker Model
+Deploys an Inference Endpoint
+Waits for deployment to be InService
+GitHub Actions CI/CD Pipeline
+
+Triggers deployment on every push to main branch
+Deletes old models, endpoints & redeploys the latest version
+
+GitHub Actions Workflow:
+```
+name: SageMaker Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚀 Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: 🐍 Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
+      - name: 📦 Install Dependencies
+        run: |
+          python -m venv forecasting_env
+          source forecasting_env/bin/activate
+          pip install --no-cache-dir -r requirements.txt
+          pip install --upgrade boto3 sagemaker
+
+      - name: 🔑 Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: 🏗️ Deploy Model to SageMaker
+        run: |
+          source forecasting_env/bin/activate
+          python src/05_deployment_testing.py
+
+      - name: ✅ Deployment Completed
+        run: echo "Deployment to AWS SageMaker is successful!"
+```
+
+🔬 Model Inference (Real-Time Predictions)
+Once deployed, predictions can be made using the SageMaker Inference API
+
+1️. Invoke Endpoint Using AWS CLI
+
+	aws sagemaker-runtime invoke-endpoint \
+    --endpoint-name xgboost-demand-forecasting-endpoint \
+    --content-type "text/csv" \
+    --body "5.2,3.1,1.4,0.2" \
+    output.json --region us-east-1
+	
+2.Invoke Endpoint Using Python
+
+import boto3
+
+ENDPOINT_NAME = "xgboost-demand-forecasting-endpoint"
+runtime = boto3.client("sagemaker-runtime")
+
+test_data = "5.2,3.1,1.4,0.2\n"  # CSV format
+
+response = runtime.invoke_endpoint(
+    EndpointName=ENDPOINT_NAME,
+    ContentType="text/csv",
+    Body=test_data
+)
+
+result = response["Body"].read().decode("utf-8")
+print("✅ Model Inference Output:", result)
+
 
 
 Future Enhancements
