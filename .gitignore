@@ -15,11 +15,11 @@ data/
 *.xlsx
 *.h5
 
-#  Ignore Model Files & Artifacts (except .pkl)
-models/
-!models/*.pkl  # Allow tracking trained model
+# Ignore all models except .pkl files
+!models/*.pkl
 *.model
 *.tar.gz
+
 
 #  Ignore Deployment Secrets
 .env
