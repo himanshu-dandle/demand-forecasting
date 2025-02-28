@@ -1,0 +1,43 @@
+#  Ignore Virtual Environment
+forecasting_env/
+venv/
+*.pyc
+__pycache__/
+
+#  Ignore Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+#  Ignore Data & Large Files
+data/
+*.csv
+*.parquet
+*.json
+*.xlsx
+*.h5
+
+#  Ignore Model Files & Artifacts
+models/
+*.pkl
+*.model
+*.tar.gz
+
+#  Ignore Deployment Secrets
+.env
+deployment/
+*.pem  # Ignore SSH keys if using
+
+#  Ignore Logs & Temp Files
+*.log
+*.out
+*.tmp
+
+# Ignore Plots & Generated Images
+plots/
+*.png
+*.jpg
+*.jpeg
+*.svg
+
+#  Ignore SageMaker & AWS Config Files (if any)
+.aws/
+*.config
