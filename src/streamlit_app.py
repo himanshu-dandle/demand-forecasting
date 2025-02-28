@@ -1,13 +1,22 @@
 import streamlit as st
 import boto3
+import os
 
-# Define SageMaker endpoint
-ENDPOINT_NAME = "xgboost-demand-forecasting-endpoint"
+# ✅ Load AWS credentials from Streamlit Secrets
+AWS_REGION = st.secrets["AWS_REGION"]
+AWS_ACCESS_KEY = st.secrets["AWS_ACCESS_KEY_ID"]
+AWS_SECRET_KEY = st.secrets["AWS_SECRET_ACCESS_KEY"]
+SAGEMAKER_ENDPOINT = st.secrets["SAGEMAKER_ENDPOINT"]
 
-# Initialize AWS SageMaker Runtime Client
-runtime = boto3.client("sagemaker-runtime")
+# ✅ Initialize AWS SageMaker Runtime Client with secrets
+runtime = boto3.client(
+    "sagemaker-runtime",
+    region_name=AWS_REGION,
+    aws_access_key_id=AWS_ACCESS_KEY,
+    aws_secret_access_key=AWS_SECRET_KEY
+)
 
-# Streamlit UI
+# ✅ Streamlit UI
 st.title("🛒 Demand Forecasting App")
 st.write("Enter product details to predict demand.")
 
@@ -26,7 +35,7 @@ if st.button("Predict Demand"):
 
     # Invoke SageMaker endpoint
     response = runtime.invoke_endpoint(
-        EndpointName=ENDPOINT_NAME,
+        EndpointName=SAGEMAKER_ENDPOINT,
         ContentType="text/csv",
         Body=test_data
     )
