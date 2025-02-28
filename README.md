@@ -1,82 +1,80 @@
 ## ***🛒 Demand Forecasting using AWS SageMaker & XGBoost***
-🔗 GitHub Repository: demand-forecasting ( [Demand Forecasting Project](https://github.com/himanshu-dandle/demand-forecasting)  )
+🔗 GitHub Repository: demand-forecasting ([Demand Forecasting Project](https://github.com/himanshu-dandle/demand-forecasting))
 
 ## 📈 Project Overview:
 This project builds a demand forecasting model using XGBoost, deployed on AWS SageMaker with a CI/CD pipeline using GitHub Actions.
 
-##✅ Key Features:
-**Data Preprocessing & Feature Engineering 
-**Model Training with XGBoost 
-**Automated Deployment to AWS SageMaker 
-**Real-time Inference via API 
-**CI/CD Pipeline for Model Deployment 
-
+## ✅ Key Features:
+**Data Preprocessing & Feature Engineering**  
+**Model Training with XGBoost**  
+**Automated Deployment to AWS SageMaker**  
+**Real-time Inference via API**  
+**CI/CD Pipeline for Model Deployment**  
 
 ### Why Demand Forecasting?  
- **Reduces inventory costs** by minimizing overstock and shortages  
- **Improves decision-making** for procurement and logistics  
- **Enhances customer satisfaction** with better product availability
- 
+**Reduces inventory costs** by minimizing overstock and shortages  
+**Improves decision-making** for procurement and logistics  
+**Enhances customer satisfaction** with better product availability  
 
-## Dataset Details
-***The dataset used in this project comes from **Kaggle** and contains historical sales data for demand forecasting.
+## Dataset Details  
+***The dataset used in this project comes from **Kaggle** and contains historical sales data for demand forecasting.***
 
-***📌 Source: Kaggle - Demand Forecasting Dataset
+***📌 Source: Kaggle - Demand Forecasting Dataset***
 
 The dataset includes:
 
-***record_ID – Unique record identifier
-***week – Weekly sales data
-***store_id – Store identifier
-***sku_id – Stock Keeping Unit (SKU) identifier
-***total_price – Total revenue generated
-***units_sold – Target variable (demand forecast)
-✅ Data Preprocessing Includes:
-✔ ***Handling Missing Values & Outliers
-✔ ***Feature Engineering (Year, Month, Week Number, etc.)
-✔ ***Scaling & Encoding for Model Training
+***record_ID – Unique record identifier***  
+***week – Weekly sales data***  
+***store_id – Store identifier***  
+***sku_id – Stock Keeping Unit (SKU) identifier***  
+***total_price – Total revenue generated***  
+***units_sold – Target variable (demand forecast)***  
 
-
+✅ **Data Preprocessing Includes:**  
+✔ ***Handling Missing Values & Outliers***  
+✔ ***Feature Engineering (Year, Month, Week Number, etc.)***  
+✔ ***Scaling & Encoding for Model Training***  
 
 ### Key Features  
- **Data Cleaning & Feature Engineering** (date-based & categorical features)  
- **ML Model Training & Evaluation** (XGBoost, Random Forest, Gradient Boosting)  
- **AWS SageMaker Deployment** (for scalable predictions)  
- **Automated CI/CD Pipeline** (GitHub Actions for continuous deployment)  
+**Data Cleaning & Feature Engineering** (date-based & categorical features)  
+**ML Model Training & Evaluation** (XGBoost, Random Forest, Gradient Boosting)  
+**AWS SageMaker Deployment** (for scalable predictions)  
+**Automated CI/CD Pipeline** (GitHub Actions for continuous deployment)  
 
 ---
 
 ## 📂 Project Structure  
-*** demand-forecasting/
-***│── data/                   # Raw & processed datasets  
-***│── models/                 # Trained models & artifacts  
-***│── notebooks/              # Jupyter Notebooks for EDA & training  
-***│── plots/                  # Visualizations  
-***│── src/                    # Python scripts for processing & training  
-***│   ├── 04_model_training.py       # Train & save the XGBoost model  
-***│   ├── 05_deployment_testing.py   # Deploy & test inference on SageMaker  
-***│   ├── test_inference.py          # Run batch inference  
-***│── deployment/             # Deployment configurations  
-***│── .github/workflows/      # GitHub Actions CI/CD  
-***│── .env                    # AWS credentials (ignored in GitHub)  
-│***── README.md               # Project documentation  
-
-
----
-
-##  Model Performance Evaluation  
-
-| Model               	 	| MAE       	| MSE        | R²        |
-|----------------------|--------------------|------------|-----------|
-| **XGBoost**         		| 0.3738 	 	| 0.2518     | **0.7462**|
-| **Random Forest**   		| 0.3755        | 0.2721     | 0.7258    |
-| **Gradient Boosting** 	| 0.5735        | 0.5554     | 0.4403    |
-
- **XGBoost performed the best** and was selected for deployment.  
+```
+demand-forecasting/
+│── data/                   # Raw & processed datasets  
+│── models/                 # Trained models & artifacts  
+│── notebooks/              # Jupyter Notebooks for EDA & training  
+│── plots/                  # Visualizations  
+│── src/                    # Python scripts for processing & training  
+│   ├── 04_model_training.py       # Train & save the XGBoost model  
+│   ├── 05_deployment_testing.py   # Deploy & test inference on SageMaker  
+│   ├── test_inference.py          # Run batch inference  
+│── deployment/             # Deployment configurations  
+│── .github/workflows/      # GitHub Actions CI/CD  
+│── .env                    # AWS credentials (ignored in GitHub)  
+│── README.md               # Project documentation  
+```
 
 ---
 
-##  Technologies Used  
+## Model Performance Evaluation  
+
+| Model                | MAE        | MSE        | R²        |
+|----------------------|-----------|------------|-----------|
+| **XGBoost**         | 0.3738    | 0.2518     | **0.7462**|
+| **Random Forest**   | 0.3755    | 0.2721     | 0.7258    |
+| **Gradient Boosting** | 0.5735    | 0.5554     | 0.4403    |
+
+**XGBoost performed the best** and was selected for deployment.
+
+---
+
+## Technologies Used  
 - **Programming:** Python (pandas, numpy, scikit-learn, XGBoost)  
 - **Notebook Environment:** Jupyter Notebook  
 - **Cloud Platform:** AWS SageMaker (for deployment)  
@@ -85,52 +83,61 @@ The dataset includes:
 
 ---
 
-##  🎯 How to Run This Project  
+## 🎯 How to Run This Project  
 
-### 1️ Clone the Repository  
-```
+### 1️⃣ Clone the Repository  
+```bash
 git clone https://github.com/himanshu-dandle/demand-forecasting.git
 cd Demand_Forecasting_Project
 ```
 
-### 2️ Set Up Virtual Environment & Install Dependencies
-
+### 2️⃣ Set Up Virtual Environment & Install Dependencies
+```bash
 python -m venv forecasting_env
 source forecasting_env/bin/activate  # Mac/Linux
 forecasting_env\Scripts\activate     # Windows
 pip install -r requirements.txt
+```
 
-### 3️ configure AWS Credentials
-Create a .env file in the project root (DO NOT COMMIT THIS FILE).
-	SAGEMAKER_BUCKET=demand-forecasting-bucket-us-east-1
-	SAGEMAKER_ROLE=arn:aws:iam::060795905003:role/service-role/AmazonSageMaker-ExecutionRole-XXXXX
+### 3️⃣ Configure AWS Credentials  
+Create a `.env` file in the project root (**DO NOT COMMIT THIS FILE**):
+```
+SAGEMAKER_BUCKET=demand-forecasting-bucket-us-east-1
+SAGEMAKER_ROLE=arn:aws:iam::060795905003:role/service-role/AmazonSageMaker-ExecutionRole-XXXXX
+```
 
-###4️ Train the Model
-	
-	python src/04_model_training.py
-	
-###5️ Deploy the Model to AWS SageMaker
-	python src/05_deployment_testing.py
+### 4️⃣ Train the Model
+```bash
+python src/04_model_training.py
+```
 
+### 5️⃣ Deploy the Model to AWS SageMaker
+```bash
+python src/05_deployment_testing.py
+```
 
-###6. Making Predictions with the Deployed Model
-   python src/test_inference.py
+### 6️⃣ Making Predictions with the Deployed Model
+```bash
+python src/test_inference.py
+```
 
-##🚀 Deployment Pipeline (AWS SageMaker & CI/CD)
+---
 
-**This project includes automated model deployment via GitHub Actions.
+## 🚀 Deployment Pipeline (AWS SageMaker & CI/CD)
 
- Workflow File: .github/workflows/deploy.yml
- Triggers: Runs on every push to main branch
+**This project includes automated model deployment via GitHub Actions.**
 
-**🔄 What Happens in CI/CD?
-***Checks out the latest code from GitHub
-***Installs dependencies inside a virtual environment
-***Deploys the trained model to AWS SageMaker
-***Runs inference tests to verify deployment
+**Workflow File:** `.github/workflows/deploy.yml`  
+**Triggers:** Runs on every push to `main` branch  
 
+### 🔄 What Happens in CI/CD?
+- **Checks out the latest code from GitHub**  
+- **Installs dependencies inside a virtual environment**  
+- **Deploys the trained model to AWS SageMaker**  
+- **Runs inference tests to verify deployment**  
 
-**Environment Variables & Secrets
+---
+### Environment Variables & Secrets
 This project uses GitHub Secrets for secure access to AWS credentials:
 
 **Secret Name	Description
@@ -139,13 +146,13 @@ This project uses GitHub Secrets for secure access to AWS credentials:
 **SAGEMAKER_BUCKET		S3 bucket name for storing model files
 **SAGEMAKER_ROLE			AWS IAM Role for SageMaker execution
 
-**📌 To set up GitHub Secrets:
+### To set up GitHub Secrets:
 
-***Go to your GitHub repo → "Settings" → "Secrets and variables" → "Actions"
-***Add the required secrets (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, etc.)
+**Go to your GitHub repo → "Settings" → "Secrets and variables" → "Actions"
+**Add the required secrets (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, etc.)
 
 
-***🔧 Deployment Steps
+### 🔧 Deployment Steps
 **Model Training (04_model_training.py)
 		Trains XGBoost model & saves it as xgboost_model.pkl
 ***Model Packaging (05_deployment_testing.py)
@@ -160,7 +167,8 @@ This project uses GitHub Secrets for secure access to AWS credentials:
 	**Triggers deployment on every push to main branch
 	**Deletes old models, endpoints & redeploys the latest version
 
-***GitHub Actions Workflow:
+
+### GitHub Actions Workflow:
 ```
 name: SageMaker Deployment Pipeline
 
@@ -205,19 +213,21 @@ jobs:
         run: echo "Deployment to AWS SageMaker is successful!"
 ```
 
-##🔬 Model Inference (Real-Time Predictions)
-Once deployed, predictions can be made using the SageMaker Inference API
 
-***1️. Invoke Endpoint Using AWS CLI
-```
-	aws sagemaker-runtime invoke-endpoint \
+## 🔬 Model Inference (Real-Time Predictions)
+Once deployed, predictions can be made using the SageMaker Inference API.
+
+### 1️⃣ Invoke Endpoint Using AWS CLI
+```bash
+aws sagemaker-runtime invoke-endpoint \
     --endpoint-name xgboost-demand-forecasting-endpoint \
     --content-type "text/csv" \
     --body "5.2,3.1,1.4,0.2" \
     output.json --region us-east-1
 ```
-***2.Invoke Endpoint Using Python
-```
+
+### 2️⃣ Invoke Endpoint Using Python
+```python
 import boto3
 
 ENDPOINT_NAME = "xgboost-demand-forecasting-endpoint"
@@ -235,28 +245,29 @@ result = response["Body"].read().decode("utf-8")
 print("✅ Model Inference Output:", result)
 ```
 
+---
 
-##Future Enhancements
-***Hyperparameter Tuning: Optimize model parameters for better 
-***Feature Engineering Improvements (Lags, Moving Averages)
-***Deep Learning Models: Implement LSTMs or Transformers for time series forecasting
-***External Data Sources: Include macroeconomic indicators for better predictions
-***Deploy as API: Use FastAPI or Flask for real-time predictions
-***Scale Deployment with AWS Lambda
+### Future Enhancements
+**Hyperparameter Tuning: Optimize model parameters for better 
+**Feature Engineering Improvements (Lags, Moving Averages)
+**Deep Learning Models: Implement LSTMs or Transformers for time series forecasting
+**External Data Sources: Include macroeconomic indicators for better predictions
+**Deploy as API: Use FastAPI or Flask for real-time predictions
+**Scale Deployment with AWS Lambda
 
-##Troubleshooting Guide
-***Issue: Deployment fails with ModelError (415) - application/json is not an accepted ContentType
-***Fix: Update test_inference.py to use "text/csv" instead of "application/json".
+### Troubleshooting Guide
+**Issue: Deployment fails with ModelError (415) - application/json is not an accepted ContentType
+**Fix: Update test_inference.py to use "text/csv" instead of "application/json".
 
-***Issue: FileNotFoundError: models/xgboost_model.pkl not found in CI/CD
+**Issue: FileNotFoundError: models/xgboost_model.pkl not found in CI/CD
 ***Fix: Either commit the .pkl file or upload it to S3 before deployment.
 
-***Issue: Model is InService, but inference fails
-***Fix: Check AWS CloudWatch Logs for error details.
+**Issue: Model is InService, but inference fails
+**Fix: Check AWS CloudWatch Logs for error details.
 
+---
 
-
-***Contact & Contributions
-***Author: Himanshu Dandle
-***Email: HIMANSHU.DANDLE#GMAIL.COM
-***GitHub: himanshu-dandle
+## 🤝 Contact & Contributions  
+- **Author:** Himanshu Dandle  
+- **Email:** HIMANSHU.DANDLE@GMAIL.COM  
+- **GitHub:** [himanshu-dandle](https://github.com/himanshu-dandle)  
