@@ -1,0 +1,21 @@
+# Core Python Libraries
+pandas==1.5.3
+numpy==1.23.5
+scikit-learn==1.2.2
+matplotlib==3.6.3
+seaborn==0.12.2
+joblib==1.2.0
+
+# Machine Learning Models
+xgboost==1.7.3
+
+# AWS SageMaker SDK
+boto3==1.26.63
+sagemaker==2.132.0
+
+# Jupyter & Notebook Execution
+jupyter==1.0.0
+nbconvert==7.2.10  # Required for executing notebooks in GitHub Actions
+
+# Environment Variables Management
+python-dotenv==1.0.0

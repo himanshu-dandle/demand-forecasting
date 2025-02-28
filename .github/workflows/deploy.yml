@@ -1,0 +1,45 @@
+name: SageMaker Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Runs when you push to main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # Use latest Ubuntu machine
+
+    steps:
+      - name: 🚀 Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: 🐍 Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'  # Use Python 3.8
+
+      - name: 📦 Install Dependencies
+        run: |
+          python -m venv forecasting_env
+          source forecasting_env/bin/activate
+          pip install -r requirements.txt
+
+      - name: ⚙️ Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1  # Change this if needed
+
+      - name: 🏗️ Run Model Training
+        run: |
+          source forecasting_env/bin/activate
+          jupyter nbconvert --to notebook --execute notebooks/04_model_training.ipynb
+
+      - name: 📦 Package and Deploy Model to SageMaker
+        run: |
+          source forecasting_env/bin/activate
+          jupyter nbconvert --to notebook --execute notebooks/05_deployment_testing.ipynb
+
+      - name: ✅ Deployment Completed
+        run: echo "Deployment to AWS SageMaker is successful!"
