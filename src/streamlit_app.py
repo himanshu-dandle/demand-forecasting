@@ -30,16 +30,23 @@ is_display_sku = st.selectbox("Is Display SKU?", [0, 1])
 
 # Button to predict
 if st.button("Predict Demand"):
-    # Prepare input as CSV format
+    # ✅ Prepare input as CSV format
     test_data = f"{store_id},{sku_id},{total_price},{base_price},{is_featured_sku},{is_display_sku}\n"
+    
+    # ✅ Print the payload for debugging
+    st.write("📤 Sending Payload:", test_data)
 
-    # Invoke SageMaker endpoint
-    response = runtime.invoke_endpoint(
-        EndpointName=SAGEMAKER_ENDPOINT,
-        ContentType="text/csv",
-        Body=test_data
-    )
+    try:
+        # ✅ Invoke SageMaker endpoint
+        response = runtime.invoke_endpoint(
+            EndpointName=SAGEMAKER_ENDPOINT,
+            ContentType="text/csv",
+            Body=test_data
+        )
 
-    # Get prediction result
-    result = response["Body"].read().decode("utf-8")
-    st.success(f"📈 Predicted Demand: {result}")
+        # ✅ Get prediction result
+        result = response["Body"].read().decode("utf-8")
+        st.success(f"📈 Predicted Demand: {result}")
+
+    except Exception as e:
+        st.error(f"❌ Prediction failed: {str(e)}")
