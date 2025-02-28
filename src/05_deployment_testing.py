@@ -2,7 +2,7 @@
 """
 05_deployment_testing.py
 
-Deploys the trained XGBoost model to AWS SageMaker.
+Deploys the trained XGBoost model to AWS SageMaker and runs inference tests.
 """
 
 import boto3
@@ -141,19 +141,26 @@ while True:
 print("🎯 Deployment process completed successfully!")
 
 # ✅ Step 12: Test Model Inference
+print("🚀 Waiting 30 seconds before running inference to ensure readiness...")
+time.sleep(30)
+
 print("🚀 Testing inference on deployed model...")
 runtime = boto3.client("sagemaker-runtime")
 
-# Create a sample input (Modify based on your data)
-test_input = json.dumps({"instances": [[5.2, 3.1, 1.4, 0.2]]})
+# ✅ Test input (CSV format)
+test_input = "5.2,3.1,1.4,0.2\n"  # ✅ Ensure this matches training format
 
-# Invoke the endpoint
-response = runtime.invoke_endpoint(
-    EndpointName=ENDPOINT_NAME,
-    ContentType="application/json",
-    Body=test_input
-)
+# ✅ Invoke the endpoint with the correct Content-Type
+try:
+    response = runtime.invoke_endpoint(
+        EndpointName=ENDPOINT_NAME,
+        ContentType="text/csv",  # ✅ FIXED: Using "text/csv" instead of JSON
+        Body=test_input
+    )
 
-# Parse response
-result = json.loads(response["Body"].read().decode())
-print("✅ Model Inference Output:", result)
+    # ✅ Parse response
+    result = response["Body"].read().decode("utf-8")
+    print("✅ Model Inference Output:", result)
+
+except Exception as e:
+    print(f"❌ Inference failed: {str(e)}")
