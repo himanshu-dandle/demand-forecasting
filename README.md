@@ -248,7 +248,7 @@ print("✅ Model Inference Output:", result)
 ---
 
 ### Future Enhancements
-**Hyperparameter Tuning: Optimize model parameters for better 
+- Hyperparameter Tuning: Optimize model parameters for better 
 **Feature Engineering Improvements (Lags, Moving Averages)
 **Deep Learning Models: Implement LSTMs or Transformers for time series forecasting
 **External Data Sources: Include macroeconomic indicators for better predictions
@@ -256,14 +256,14 @@ print("✅ Model Inference Output:", result)
 **Scale Deployment with AWS Lambda
 
 ### Troubleshooting Guide
-**Issue: Deployment fails with ModelError (415) - application/json is not an accepted ContentType
-**Fix: Update test_inference.py to use "text/csv" instead of "application/json".
+1. Issue: Deployment fails with ModelError (415) - application/json is not an accepted ContentType
+	Fix: Update test_inference.py to use "text/csv" instead of "application/json".
 
-**Issue: FileNotFoundError: models/xgboost_model.pkl not found in CI/CD
-***Fix: Either commit the .pkl file or upload it to S3 before deployment.
+2. Issue: FileNotFoundError: models/xgboost_model.pkl not found in CI/CD
+	Fix: Either commit the .pkl file or upload it to S3 before deployment.
 
-**Issue: Model is InService, but inference fails
-**Fix: Check AWS CloudWatch Logs for error details.
+3. Issue: Model is InService, but inference fails
+	Fix: Check AWS CloudWatch Logs for error details.
 
 ---
 
