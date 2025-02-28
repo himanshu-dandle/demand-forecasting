@@ -1,9 +1,8 @@
 # Demand Forecasting Using Machine Learning  
 
- **Accurately predicting future demand to optimize inventory and supply chain management.** 
-**Live Deployed Model 
- **AWS SageMaker Endpoint: xgboost-demand-forecasting-endpoint (Private)
- **GitHub Repository:** [Demand Forecasting Project](https://github.com/himanshu-dandle/demand-forecasting)  
+Accurately predicting future demand to optimize inventory and supply chain management.** 
+Live Deployed Model AWS SageMaker Endpoint: xgboost-demand-forecasting-endpoint (Private)
+GitHub Repository: [Demand Forecasting Project](https://github.com/himanshu-dandle/demand-forecasting)  
  
 ---
 
@@ -16,27 +15,34 @@ This project builds a demand forecasting system using machine learning models su
 ✔ Automated CI/CD with GitHub Actions
 
 
-### 🔹 Why Demand Forecasting?  
+### Why Demand Forecasting?  
  **Reduces inventory costs** by minimizing overstock and shortages  
  **Improves decision-making** for procurement and logistics  
  **Enhances customer satisfaction** with better product availability
  
- 
-### Dataset Details
-The dataset contains historical sales data with the following features:
 
-** Column	Description
-** record_ID	Unique record identifier
-** week	Sales week (timestamp)
-**store_id	Store identifier
-**sku_id	Stock Keeping Unit (Product ID)
-**total_price	Total revenue generated
-** base_price	Product base price
-**is_featured_sku	Whether the product was promoted
-**is_display_sku	Whether the product was displayed prominently
-**units_sold	Target Variable - Number of units sold
-**year, month, week_num, quarter, day_of_week	Extracted time features
-📌 Source: The dataset is stored in data/ and processed before training.
+## Dataset Details
+The dataset used in this project comes from **Kaggle** and contains historical sales data for demand forecasting.
+
+📌 **Source:** [Kaggle - Demand Forecasting Dataset](https://www.kaggle.com/) (Replace with actual link)
+
+✔ **You need to manually download the dataset from Kaggle** before running the project.  
+✔ **Place the dataset in the `data/` directory** before training the model.
+
+The dataset contains the following features:
+
+1. **Column	Description
+2. **record_ID	Unique record identifier
+3. **week	Sales week (timestamp)
+4. **store_id	Store identifier
+5. **sku_id	Stock Keeping Unit (Product ID)
+6. **total_price	Total revenue generated
+7. ** base_price	Product base price
+8. **is_featured_sku	Whether the product was promoted
+9. **is_display_sku	Whether the product was displayed prominently
+10. **units_sold	Target Variable - Number of units sold
+11. **year, month, week_num, quarter, day_of_week	Extracted time features
+
 
 
 
@@ -173,15 +179,15 @@ External Data Sources: Include macroeconomic indicators for better predictions
 Deploy as API: Use FastAPI or Flask for real-time predictions
 Scale Deployment with AWS Lambda
 
-🛠 Troubleshooting Guide
-🚨 Issue: Deployment fails with ModelError (415) - application/json is not an accepted ContentType
-✅ Fix: Update test_inference.py to use "text/csv" instead of "application/json".
+Troubleshooting Guide
+Issue: Deployment fails with ModelError (415) - application/json is not an accepted ContentType
+Fix: Update test_inference.py to use "text/csv" instead of "application/json".
 
-🚨 Issue: FileNotFoundError: models/xgboost_model.pkl not found in CI/CD
-✅ Fix: Either commit the .pkl file or upload it to S3 before deployment.
+Issue: FileNotFoundError: models/xgboost_model.pkl not found in CI/CD
+Fix: Either commit the .pkl file or upload it to S3 before deployment.
 
-🚨 Issue: Model is InService, but inference fails
-✅ Fix: Check AWS CloudWatch Logs for error details.
+Issue: Model is InService, but inference fails
+Fix: Check AWS CloudWatch Logs for error details.
 
 
 
