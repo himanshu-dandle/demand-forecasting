@@ -1,5 +1,4 @@
 name: SageMaker Deployment Pipeline
-
 on:
   push:
     branches:
