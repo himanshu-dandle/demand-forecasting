@@ -1,19 +1,44 @@
 # Demand Forecasting Using Machine Learning  
 
-**Accurately predicting future demand to optimize inventory and supply chain management.**  
-
+ **Accurately predicting future demand to optimize inventory and supply chain management.** 
+**Live Deployed Model 
+ **AWS SageMaker Endpoint: xgboost-demand-forecasting-endpoint (Private)
  **GitHub Repository:** [Demand Forecasting Project](https://github.com/himanshu-dandle/demand-forecasting)  
-
+ 
 ---
 
 ##  Project Overview  
 
-Demand forecasting is essential for **retail and supply chain optimization**. This project uses **XGBoost, Random Forest, and Gradient Boosting** to analyze **historical sales data** and predict **future demand**.  
+This project builds a demand forecasting system using machine learning models such as XGBoost, Random Forest, and Gradient Boosting. The model predicts product demand based on historical sales data, price fluctuations, and store performance.
+
+✔ End-to-End Pipeline from EDA → Model Training → Deployment
+✔ Deployed on AWS SageMaker for scalable real-time inference
+✔ Automated CI/CD with GitHub Actions
+
 
 ### 🔹 Why Demand Forecasting?  
  **Reduces inventory costs** by minimizing overstock and shortages  
  **Improves decision-making** for procurement and logistics  
- **Enhances customer satisfaction** with better product availability  
+ **Enhances customer satisfaction** with better product availability
+ 
+ 
+### Dataset Details
+The dataset contains historical sales data with the following features:
+
+** Column	Description
+** record_ID	Unique record identifier
+** week	Sales week (timestamp)
+**store_id	Store identifier
+**sku_id	Stock Keeping Unit (Product ID)
+**total_price	Total revenue generated
+** base_price	Product base price
+**is_featured_sku	Whether the product was promoted
+**is_display_sku	Whether the product was displayed prominently
+**units_sold	Target Variable - Number of units sold
+**year, month, week_num, quarter, day_of_week	Extracted time features
+📌 Source: The dataset is stored in data/ and processed before training.
+
+
 
 ### 🔹 Key Features  
  **Data Cleaning & Feature Engineering** (date-based & categorical features)  
@@ -24,24 +49,23 @@ Demand forecasting is essential for **retail and supply chain optimization**. Th
 ---
 
 ## 📂 Project Structure  
-
-📦 Demand_Forecasting_Project
-│── data/                    # Raw & processed datasets  
-│── models/                  # Trained models & artifacts  
-│── notebooks/               # Jupyter Notebooks for each step  
-│── plots/                   # Visualizations & saved plots  
-│── src/                     # Python scripts for preprocessing & modeling  
-│── forecasting_env/         # Virtual environment for dependencies  
-│── model-config.json        # SageMaker model configuration  
-│── bucket-policy.json       # S3 bucket permissions  
-│── .env                     # AWS credentials (DO NOT COMMIT)  
-│── .gitignore               # Files to ignore in Git  
-│── README.md                # Project documentation  
-│── 01_data_loading.ipynb    # Load & verify raw dataset  
-│── 02_eda.ipynb             # Perform Exploratory Data Analysis (EDA)  
-│── 03_feature_engineering.ipynb  # Feature selection & transformation  
-│── 04_model_training.ipynb  # Train multiple models & select the best one  
-│── 05_deployment_testing.ipynb  # Deploy to AWS SageMaker & test inference
+📂 Demand_Forecasting_Project/
+├── 📁 data/                 # Raw & processed datasets (not committed to GitHub)  
+├── 📁 models/               # Trained models & artifacts  
+├── 📁 notebooks/            # Jupyter Notebooks for EDA & training  
+├── 📁 src/                  # Python scripts for model training & deployment  
+│   ├── 01_data_loading.py  
+│   ├── 02_eda.py  
+│   ├── 03_feature_engineering.py  
+│   ├── 04_model_training.py  
+│   ├── 05_deployment_testing.py  
+│   ├── test_inference.py  # Inference testing script  
+├── 📁 deployment/           # Deployment-related configuration files  
+├── 📁 .github/workflows/    # GitHub Actions CI/CD pipeline  
+│   ├── deploy.yml  
+├── 📄 requirements.txt      # Python dependencies  
+├── 📄 .gitignore            # Ignored files (data, logs, secrets)  
+├── 📄 README.md             # Project documentation  
 
 
 ---
@@ -114,18 +138,52 @@ response = runtime.invoke_endpoint(
 result = json.loads(response["Body"].read().decode())
 print("Prediction:", result)
 
-CI/CD Pipeline (Auto-Deploy with GitHub Actions)
-Every push to GitHub triggers a workflow:
- Runs tests
- Re-trains the model (if needed)
- Deploys the new model to AWS SageMaker
-⚡ Want to enable GitHub Actions for automatic deployment? Let me know!
+ CI/CD Workflow (GitHub Actions)
+This project includes automated model deployment via GitHub Actions.
+
+ Workflow File: .github/workflows/deploy.yml
+ Triggers: Runs on every push to main branch
+
+🔄 What Happens in CI/CD?
+Checks out the latest code from GitHub
+Installs dependencies inside a virtual environment
+Deploys the trained model to AWS SageMaker
+Runs inference tests to verify deployment
+
+
+Environment Variables & Secrets
+This project uses GitHub Secrets for secure access to AWS credentials:
+
+Secret Name	Description
+AWS_ACCESS_KEY_ID		AWS Access Key for authentication
+AWS_SECRET_ACCESS_KEY	AWS Secret Key for authentication
+SAGEMAKER_BUCKET		S3 bucket name for storing model files
+SAGEMAKER_ROLE			AWS IAM Role for SageMaker execution
+📌 To set up GitHub Secrets:
+
+Go to your GitHub repo → "Settings" → "Secrets and variables" → "Actions"
+Add the required secrets (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, etc.)
+
 
 Future Enhancements
-Hyperparameter Tuning: Optimize model parameters for better accuracy
+Hyperparameter Tuning: Optimize model parameters for better 
+Feature Engineering Improvements (Lags, Moving Averages)
 Deep Learning Models: Implement LSTMs or Transformers for time series forecasting
 External Data Sources: Include macroeconomic indicators for better predictions
 Deploy as API: Use FastAPI or Flask for real-time predictions
+Scale Deployment with AWS Lambda
+
+🛠 Troubleshooting Guide
+🚨 Issue: Deployment fails with ModelError (415) - application/json is not an accepted ContentType
+✅ Fix: Update test_inference.py to use "text/csv" instead of "application/json".
+
+🚨 Issue: FileNotFoundError: models/xgboost_model.pkl not found in CI/CD
+✅ Fix: Either commit the .pkl file or upload it to S3 before deployment.
+
+🚨 Issue: Model is InService, but inference fails
+✅ Fix: Check AWS CloudWatch Logs for error details.
+
+
 
  Contact & Contributions
  Author: Himanshu Dandle
